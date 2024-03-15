@@ -1,0 +1,100 @@
+<%- layout("/layouts/boilerplate") %>
+
+<div class="row mt-3 mb-3">
+  <div class="col-8 offset-2">
+    <h3>Create a New Listing</h3>
+    <form
+      method="POST"
+      action="/listings"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label"><b>Title</b></label>
+        <input
+          name="listing[title]"
+          type="text"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Title looks good!</div>
+        <div class="invalid-feedback">Title is mandatory!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label"><b>Description</b></label>
+        <textarea
+          name="listing[description]"
+          cols="30"
+          rows="4"
+          placeholder="Enter description"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Please enter a short description!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label"
+          ><b>Upload Listing Image</b></label
+        >
+        <input
+          name="listing[image]"
+          type="file"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label"><b>Price</b></label>
+          <input
+            name="listing[price]"
+            placeholder="Enter price"
+            type="number"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Enter a valid price!</div>
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label"><b>Country</b></label>
+          <!-- <input
+            name="listing[country]"
+            placeholder="Enter country"
+            type="text"
+            class="form-control"
+            required
+          /> -->
+          <select name="listing[country]" class="form-control" required>
+            <option value="">-- Please choose a country --</option>
+            <option value="India">India</option>
+            <option value="America">America</option>
+            <option value="hamster">China</option>
+            <option value="parrot">Thailand</option>
+            <option value="spider">Maldives</option>
+            <option value="goldfish">UAE</option>
+          </select>
+          <div class="invalid-feedback">Country is required!</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label"><b>Location</b></label>
+        <input
+          name="listing[location]"
+          placeholder="Enter location"
+          type="text"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Location should be valid!</div>
+      </div>
+
+      <button class="btn btn-dark add-btn mt-3">Add</button>
+    </form>
+  </div>
+</div>
