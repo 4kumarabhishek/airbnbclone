@@ -32,22 +32,22 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.searchListing = async (req, res) => {
-  let { id } = req.query;
-  console.log(id);
-  // const listing = await Listing.findById(id)
-  //   .populate({
-  //     path: "reviews",
-  //     populate: {
-  //       path: "author",
-  //     },
-  //   })
-  //   .populate("owner");
-  // if (!listing) {
-  //   req.flash("error", "This Listing doesnot exist!");
-  //   res.redirect("/listings");
-  // }
+  let { search } = req.query;
+  console.log(search);
+  const listing = Listing.findOne({ title: search })
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "author",
+      },
+    })
+    .populate("owner");
+  if (!listing) {
+    req.flash("error", "This Listing doesnot exist!");
+    res.redirect("/listings");
+  }
 
-  // res.render("listings/show.ejs", { listing });
+  res.render("listings/show.ejs", { listing });
 };
 
 module.exports.createListing = async (req, res, next) => {

@@ -11,8 +11,8 @@ const listingSchema = new Schema({
     type: String,
   },
   image: {
-    url: String,
     filename: String,
+    url: String,
   },
 
   price: {
@@ -38,7 +38,7 @@ const listingSchema = new Schema({
     type: {
       type: String,
       enum: ["Point"],
-      required: true,
+      // required: true,
     },
     coordinates: {
       type: [Number],

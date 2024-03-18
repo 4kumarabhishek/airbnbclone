@@ -22,6 +22,7 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 const wrapAsync = require("./utils/wrapAsync.js");
+const { isLoggedIn } = require("./middleware.js");
 
 const mongoUrl = "mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl = process.env.ATLASDB_URL;
@@ -92,6 +93,16 @@ app.get(
     res.render("listings/index.ejs", { allListings });
   })
 );
+
+// app.get(
+//   "/listings/search",
+//   wrapAsync(async (req, res) => {
+//     let { search } = req.query;
+//     console.log(search);
+//     let listing = Listing.findOne({ title: search });
+//     res.render("listings/show.ejs", { listing });
+//   })
+// );
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
