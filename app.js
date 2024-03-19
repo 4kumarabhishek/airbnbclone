@@ -32,7 +32,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(mongoUrl);
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
@@ -44,20 +44,20 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 app.engine("ejs", ejsMate);
 
-// const store = MongoStore.create({
-//   mongoUrl: dbUrl,
-//   crypto: {
-//     secret: process.env.SECRET,
-//   },
-//   touchAfter: 24 * 3600,
-// });
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
 
-// store.on("error", () => {
-//   console.log("ERROR IN MONGO SESSION STORE", err);
-// });
+store.on("error", () => {
+  console.log("ERROR IN MONGO SESSION STORE", err);
+});
 
 const sessionOptions = {
-  // store,
+  store,
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
@@ -93,16 +93,6 @@ app.get(
     res.render("listings/index.ejs", { allListings });
   })
 );
-
-// app.get(
-//   "/listings/search",
-//   wrapAsync(async (req, res) => {
-//     let { search } = req.query;
-//     console.log(search);
-//     let listing = Listing.findOne({ title: search });
-//     res.render("listings/show.ejs", { listing });
-//   })
-// );
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);

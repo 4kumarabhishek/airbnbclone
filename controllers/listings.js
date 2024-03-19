@@ -33,9 +33,7 @@ module.exports.showListing = async (req, res) => {
 
 module.exports.searchListing = async (req, res) => {
   let { search } = req.query;
-  console.log(search);
   const allListings = await Listing.find({ country: search });
-  console.log(allListings);
   if (allListings.length == 0) {
     req.flash("error", "We are not serving in this country!");
     return res.redirect("/listings");
