@@ -1,6 +1,9 @@
 <style>
   .container-fluid {
     padding: 0 7rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100vw !important;
   }
 
   .search-btn {
@@ -28,7 +31,7 @@
   .nav-link {
     margin-left: 1rem;
     border-radius: 25px;
-    background-color: #f0f0f0;
+    font-size: 0.9rem;
   }
 
   .nav-link:hover {
@@ -37,10 +40,11 @@
   }
 
   .addListing {
+    font-size: 1rem;
     font-weight: 600;
-    background-color: #f0f0f0;
     padding-left: 10px !important;
     padding-right: 10px !important;
+    border: 1px dotted gray;
   }
 
   .addListing:hover {
@@ -53,7 +57,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
     margin-left: 1rem;
   }
 
@@ -61,14 +64,49 @@
     margin-right: 0.5rem;
     font-size: 30px;
   }
+
+  /* .collapse {
+    width: 100vw !important;
+    background-color: white !important;
+  } */
+  /* media queries */
+  @media (max-width: 758px) {
+    .container-fluid {
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .collapse {
+      padding: 1.5rem 0;
+    }
+  }
 </style>
 
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"
-      ><i class="fa-brands fa-airbnb"></i>
-      <h4><b>airbnb</b></h4>
-    </a>
+    <div>
+      <a class="navbar-brand" href="/listings"
+        ><i class="fa-brands fa-airbnb"></i>
+        <h4><b>airbnb</b></h4>
+      </a>
+    </div>
+
+    <div>
+      <form class="d-flex" method="GET" action="/listings/search">
+        <input
+          class="form-control me-2 search-inp"
+          type="search"
+          name="search"
+          role="search"
+          placeholder="Search destinations"
+        />
+        <button class="btn search-btn" type="submit">
+          <i class="fa-solid fa-search"></i>Search
+        </button>
+      </form>
+    </div>
     <button
       class="navbar-toggler"
       type="button"
@@ -77,31 +115,15 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <!-- <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div> -->
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" method="GET" action="/listings/search">
-          <input
-            class="form-control me-2 search-inp"
-            type="search"
-            name="search"
-            role="search"
-            placeholder="Search destinations"
-          />
-          <button class="btn search-btn" type="submit">
-            <i class="fa-solid fa-search"></i>Search
-          </button>
-        </form>
-      </div>
-      <div class="navbar-nav ms-auto">
+
+    <div class="collapse navbar-collapse bg-white" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
         <a class="nav-link addListing" href="/listings/new">Airbnb your home</a>
         <% if(!currUser) {%>
         <a class="nav-link" href="/signup"><b>Sign Up</b></a>
         <a class="nav-link" href="/login"><b>Log In</b></a>
         <% } %> <% if(currUser) {%>
-        <a class="nav-link" href="/logout">Log Out</a>
+        <a class="nav-link" href="/logout"><b>Log Out</b></a>
         <div class="user" style="background-color: #fff">
           <i class="fa-solid fa-circle-user" style="color: #fe424d"></i>
           <b><%= currUser.username %></b>

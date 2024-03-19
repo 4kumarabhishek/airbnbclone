@@ -34,20 +34,14 @@ module.exports.showListing = async (req, res) => {
 module.exports.searchListing = async (req, res) => {
   let { search } = req.query;
   console.log(search);
-  const listing = Listing.findOne({ title: search })
-    .populate({
-      path: "reviews",
-      populate: {
-        path: "author",
-      },
-    })
-    .populate("owner");
-  if (!listing) {
-    req.flash("error", "This Listing doesnot exist!");
-    res.redirect("/listings");
+  const allListings = await Listing.find({ country: search });
+  console.log(allListings);
+  if (allListings.length == 0) {
+    req.flash("error", "We are not serving in this country!");
+    return res.redirect("/listings");
   }
 
-  res.render("listings/show.ejs", { listing });
+  res.render("listings/index.ejs", { allListings });
 };
 
 module.exports.createListing = async (req, res, next) => {
